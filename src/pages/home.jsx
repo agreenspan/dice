@@ -9,16 +9,20 @@ class Home extends React.Component {
 
     this.state = {
       black: {
-        failWeight: 1,
-        failRange: 1,
-        successWeight: 1,
-        successRange: 1
+        '1': -1,
+        '2': 0,
+        '3': 0,
+        '4': 0,
+        '5': 0,
+        '6': 1
       },
       white: {
-        failWeight: 1,
-        failRange: 1,
-        successWeight: 2,
-        successRange: 1
+        '1': -1,
+        '2': 0,
+        '3': 0,
+        '4': 0,
+        '5': 0,
+        '6': 2
       }
     }
   }
@@ -131,91 +135,84 @@ class Home extends React.Component {
           <Row>
             <Col sm='3'>
               <Row>
-                <Col sm='12'>
+                <Col sm='6'>
                   <label>Black:</label> 
-                </Col>
-                <Col sm='6'>
-                  Fail Weight:
                   <br/>
                   <input type='number'
-                    name='black.failWeight'
-                    value={this.state.black.failWeight}
+                    name='black.1'
+                    value={this.state.black['1']}
+                    onChange={this.handleChange}
+                    min={-5} max={-1}
+                    />
+                    <input type='number'
+                    name='black.2'
+                    value={this.state.black['2']}
+                    onChange={this.handleChange}
+                    min={-5} max={0}
+                    />
+                    <input type='number'
+                    name='black.3'
+                    value={this.state.black['3']}
+                    onChange={this.handleChange}
+                    min={-2} max={2}
+                    />
+                    <input type='number'
+                    name='black.4'
+                    value={this.state.black['4']}
+                    onChange={this.handleChange}
+                    min={2} max={2}
+                    />
+                    <input type='number'
+                    name='black.5'
+                    value={this.state.black['5']}
+                    onChange={this.handleChange}
+                    min={0} max={5}
+                    />
+                    <input type='number'
+                    name='black.6'
+                    value={this.state.black['6']}
                     onChange={this.handleChange}
                     min={1} max={5}
                     />
-                </Col>
-                <Col sm='6'>
-                  Fail Range: 
-                  <br/>
-                  <input type='number'
-                    name='black.failRange'
-                    value={this.state.black.failRange}
-                    onChange={this.handleChange}
-                    min={1} max={3}
-                    />
-                </Col>
-                <Col sm='6'>
-                  Success Weight:
-                  <br/>
-                  <input type='number'
-                    name='black.successWeight'
-                    value={this.state.black.successWeight}
-                    onChange={this.handleChange}
-                    min={1} max={5}
-                    />
-                </Col>
-                <Col sm='6'>
-                  Success Range: 
-                  <br/>
-                  <input type='number'
-                    name='black.successRange'
-                    value={this.state.black.successRange}
-                    onChange={this.handleChange}
-                    min={1} max={3}
-                    />
-                </Col>                
-                <Col sm='12' style={{marginBottom: 20}}/>
-                <Col sm='12'>
+                  </Col>
+                  <Col sm='6'>
                   <label>White: </label> 
-                </Col>
-                <Col sm='6'>
-                  Fail Weight:
                   <br/>
                   <input type='number'
-                    name='white.failWeight'
-                    value={this.state.white.failWeight}
+                    name='white.1'
+                    value={this.state.white['1']}
+                    onChange={this.handleChange}
+                    min={-5} max={-1}
+                    />
+                    <input type='number'
+                    name='white.2'
+                    value={this.state.white['2']}
+                    onChange={this.handleChange}
+                    min={-5} max={0}
+                    />
+                    <input type='number'
+                    name='white.3'
+                    value={this.state.white['3']}
+                    onChange={this.handleChange}
+                    min={-2} max={2}
+                    />
+                    <input type='number'
+                    name='white.4'
+                    value={this.state.white['4']}
+                    onChange={this.handleChange}
+                    min={2} max={2}
+                    />
+                    <input type='number'
+                    name='white.5'
+                    value={this.state.white['5']}
+                    onChange={this.handleChange}
+                    min={0} max={5}
+                    />
+                    <input type='number'
+                    name='white.6'
+                    value={this.state.white['6']}
                     onChange={this.handleChange}
                     min={1} max={5}
-                    />
-                </Col>
-                <Col sm='6'>
-                  Fail Range: 
-                  <br/>
-                  <input type='number'
-                    name='white.failWeight'
-                    value={this.state.white.failRange}
-                    onChange={this.handleChange}
-                    min={1} max={3}
-                    />
-                </Col>
-                <Col sm='6'>
-                  Success Weight:
-                  <br/>
-                  <input type='number'
-                    name='white.successWeight'
-                    value={this.state.white.successWeight}
-                    onChange={this.handleChange}
-                    min={1} max={5}
-                    />
-                </Col>
-                <Col sm='6'>
-                  Success Range: 
-                  <br/>
-                  <input type='number'
-                    name='white.successRange'
-                    value={this.state.white.successRange}
-                    onChange={this.handleChange}
-                    min={1} max={3}
                     />
                 </Col>                
               </Row>
