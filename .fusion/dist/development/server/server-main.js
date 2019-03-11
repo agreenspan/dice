@@ -1,5 +1,5 @@
 if(process.env.NODE_ENV && process.env.NODE_ENV !== 'development') {if ('development' === 'production') {throw new Error(`NODE_ENV (${process.env.NODE_ENV}) does not match value for compiled assets: development`);} else {console.warn('Overriding NODE_ENV: ' + process.env.NODE_ENV + ' to development in order to match value for compiled assets');process.env.NODE_ENV = 'development';}} else {process.env.NODE_ENV = 'development';}
-require('E:\Apps\dice\node_modules\source-map-support\source-map-support.js').install();
+require('/Users/agreenspan/Apps/dice/node_modules/source-map-support/source-map-support.js').install();
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// eslint-disable-next-line no-unused-vars
@@ -25,7 +25,7 @@ module.exports =
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "4d2dd89e272010aa91d4";
+/******/ 	var hotCurrentHash = "e60ac274c646c37dbf05";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -1379,7 +1379,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reactstrap */ "reactstrap");
 /* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(reactstrap__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var fusion_plugin_styletron_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! fusion-plugin-styletron-react */ "fusion-plugin-styletron-react");
+/* harmony import */ var fusion_plugin_styletron_react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(fusion_plugin_styletron_react__WEBPACK_IMPORTED_MODULE_3__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -1390,14 +1393,19 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     super();
 
     _defineProperty(this, "handleChange", event => {
+      const {
+        name,
+        value
+      } = event.target;
       this.setState(prev => {
-        prev[event.target.name] = event.target.value;
+        lodash__WEBPACK_IMPORTED_MODULE_1___default.a.set(prev, name, value);
+
         return prev;
       });
     });
 
     _defineProperty(this, "computeOutcomes", () => {
-      const outcomeKeys = [];
+      let outcomeKeys = [];
 
       const outcomes = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.reduce([0, 1, 2, 3, 4, 5], (outcomeMap, statRank) => {
         const rolls = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.map([1, 2, 3, 4, 5, 6], d1 => {
@@ -1441,20 +1449,60 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
                   }
 
                   const whiteOutcome = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.reduce(whitePool, (sum, die) => {
-                    if (die <= this.state.white.failRange) {
-                      sum -= parseInt(this.state.white.failWeight);
-                    } else if (die >= 7 - this.state.white.successRange) {
-                      sum += parseInt(this.state.white.successWeight);
+                    switch (die) {
+                      case 1:
+                        sum += parseInt(this.state.white.one);
+                        break;
+
+                      case 2:
+                        sum += parseInt(this.state.white.two);
+                        break;
+
+                      case 3:
+                        sum += parseInt(this.state.white.three);
+                        break;
+
+                      case 4:
+                        sum += parseInt(this.state.white.four);
+                        break;
+
+                      case 5:
+                        sum += parseInt(this.state.white.five);
+                        break;
+
+                      case 6:
+                        sum += parseInt(this.state.white.six);
+                        break;
                     }
 
                     return sum;
                   }, 0);
 
                   const blackOutcome = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.reduce(blackPool, (sum, die) => {
-                    if (die <= this.state.black.failRange) {
-                      sum -= parseInt(this.state.black.failWeight);
-                    } else if (die >= 7 - this.state.black.successRange) {
-                      sum += parseInt(this.state.black.successWeight);
+                    switch (die) {
+                      case 1:
+                        sum += parseInt(this.state.black.one);
+                        break;
+
+                      case 2:
+                        sum += parseInt(this.state.black.two);
+                        break;
+
+                      case 3:
+                        sum += parseInt(this.state.black.three);
+                        break;
+
+                      case 4:
+                        sum += parseInt(this.state.black.four);
+                        break;
+
+                      case 5:
+                        sum += parseInt(this.state.black.five);
+                        break;
+
+                      case 6:
+                        sum += parseInt(this.state.black.six);
+                        break;
                     }
 
                     return sum;
@@ -1483,9 +1531,9 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
           return sorting;
         }, {});
         return outcomeMap;
-      }, {}); // outcomeKeys = order 
+      }, {});
 
-
+      outcomeKeys = outcomeKeys.reverse();
       return {
         outcomeKeys,
         outcomes
@@ -1494,20 +1542,20 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
 
     this.state = {
       black: {
-        '1': -1,
-        '2': 0,
-        '3': 0,
-        '4': 0,
-        '5': 0,
-        '6': 1
+        one: -1,
+        two: 0,
+        three: 0,
+        four: 0,
+        five: 0,
+        six: 1
       },
       white: {
-        '1': -1,
-        '2': 0,
-        '3': 0,
-        '4': 0,
-        '5': 0,
-        '6': 2
+        one: -1,
+        two: 0,
+        three: 0,
+        four: 0,
+        five: 0,
+        six: 2
       }
     };
   }
@@ -1518,26 +1566,10 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       outcomes
     } = this.computeOutcomes();
 
-    const totalSuccess = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.reduce(outcomes, (total, p) => {
-      if (p.outcome > 0) {
-        total += p.chance;
-      }
-
-      return total;
-    }, 0);
-
-    const totalFailure = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.reduce(outcomes, (total, p) => {
-      if (p.outcome < 0) {
-        total += p.chance;
-      }
-
-      return total;
-    }, 0);
-
-    const displayOutcomes = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.map(outcomes, (o, i) => {
+    const displayOutcomes = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.map(outcomeKeys, (v, i) => {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
         key: i
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, o.outcome), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, o.chance.toFixed(2), "%"));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, v), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, (outcomes['0'][v] / 77.76).toFixed(2) || '-'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, (outcomes['1'][v] / 77.76).toFixed(2) || '-'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, (outcomes['2'][v] / 77.76).toFixed(2) || '-'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, (outcomes['3'][v] / 77.76).toFixed(2) || '-'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, (outcomes['4'][v] / 77.76).toFixed(2) || '-'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, (outcomes['5'][v] / 77.76).toFixed(2) || '-'));
     });
 
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("link", {
@@ -1545,7 +1577,16 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       href: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
       integrity: "sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u",
       crossOrigin: "anonymous"
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("link", {
+      rel: "stylesheet",
+      href: "https://use.fontawesome.com/releases/v5.3.1/css/all.css",
+      integrity: "sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU",
+      crossOrigin: "anonymous"
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("link", {
+      rel: "stylesheet",
+      href: "file:///Users/agreenspan/Apps/dice/src/pages/style.css"
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Container"], {
+      fluid: true,
       style: {
         paddingTop: 20
       }
@@ -1553,89 +1594,107 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       sm: "3"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
       sm: "6"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Black:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Black:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fa fa-dice-one"
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "number",
-      name: "black.1",
-      value: this.state.black['1'],
+      name: "black.one",
+      value: this.state.black.one,
       onChange: this.handleChange,
       min: -5,
       max: -1
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fa fa-dice-two"
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "number",
-      name: "black.2",
-      value: this.state.black['2'],
+      name: "black.two",
+      value: this.state.black.two,
       onChange: this.handleChange,
       min: -5,
       max: 0
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fa fa-dice-three"
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "number",
-      name: "black.3",
-      value: this.state.black['3'],
+      name: "black.three",
+      value: this.state.black.three,
       onChange: this.handleChange,
       min: -2,
       max: 2
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fa fa-dice-four"
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "number",
-      name: "black.4",
-      value: this.state.black['4'],
+      name: "black.four",
+      value: this.state.black.four,
       onChange: this.handleChange,
       min: 2,
       max: 2
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fa fa-dice-five"
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "number",
-      name: "black.5",
-      value: this.state.black['5'],
+      name: "black.five",
+      value: this.state.black.five,
       onChange: this.handleChange,
       min: 0,
       max: 5
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fa fa-dice-six"
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "number",
-      name: "black.6",
-      value: this.state.black['6'],
+      name: "black.six",
+      value: this.state.black.six,
       onChange: this.handleChange,
       min: 1,
       max: 5
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
       sm: "6"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "White: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "White: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fa fa-dice-one",
+      style: {
+        color: 'white',
+        backgroundColor: 'black'
+      }
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "number",
-      name: "white.1",
-      value: this.state.white['1'],
+      name: "white.one",
+      value: this.state.white.one,
       onChange: this.handleChange,
       min: -5,
       max: -1
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "2", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "number",
-      name: "white.2",
-      value: this.state.white['2'],
+      name: "white.two",
+      value: this.state.white.two,
       onChange: this.handleChange,
       min: -5,
       max: 0
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "3", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "number",
-      name: "white.3",
-      value: this.state.white['3'],
+      name: "white.three",
+      value: this.state.white.three,
       onChange: this.handleChange,
       min: -2,
       max: 2
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "4", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "number",
-      name: "white.4",
-      value: this.state.white['4'],
+      name: "white.four",
+      value: this.state.white.four,
       onChange: this.handleChange,
       min: 2,
       max: 2
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "5", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "number",
-      name: "white.5",
-      value: this.state.white['5'],
+      name: "white.five",
+      value: this.state.white.five,
       onChange: this.handleChange,
       min: 0,
       max: 5
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "6", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "number",
-      name: "white.6",
-      value: this.state.white['6'],
+      name: "white.six",
+      value: this.state.white.six,
       onChange: this.handleChange,
       min: 1,
       max: 5
@@ -1716,53 +1775,53 @@ const root = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(fusion_p
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\Apps\dice\node_modules\webpack\hot\poll.js?1000 */"./node_modules/webpack/hot/poll.js?1000");
-module.exports = __webpack_require__(/*! E:\Apps\dice\node_modules\fusion-cli\entries\server-entry.js */"./node_modules/fusion-cli/entries/server-entry.js");
+__webpack_require__(/*! /Users/agreenspan/Apps/dice/node_modules/webpack/hot/poll.js?1000 */"./node_modules/webpack/hot/poll.js?1000");
+module.exports = __webpack_require__(/*! /Users/agreenspan/Apps/dice/node_modules/fusion-cli/entries/server-entry.js */"./node_modules/fusion-cli/entries/server-entry.js");
 
 
 /***/ }),
 
 /***/ "fusion-core":
-/*!****************************************************************************!*\
-  !*** external "E:\\Apps\\dice\\node_modules\\fusion-core\\dist\\index.js" ***!
-  \****************************************************************************/
+/*!*************************************************************************************!*\
+  !*** external "/Users/agreenspan/Apps/dice/node_modules/fusion-core/dist/index.js" ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("E:\\Apps\\dice\\node_modules\\fusion-core\\dist\\index.js");
+module.exports = require("/Users/agreenspan/Apps/dice/node_modules/fusion-core/dist/index.js");
 
 /***/ }),
 
 /***/ "fusion-plugin-react-router":
-/*!*******************************************************************************************!*\
-  !*** external "E:\\Apps\\dice\\node_modules\\fusion-plugin-react-router\\dist\\index.js" ***!
-  \*******************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** external "/Users/agreenspan/Apps/dice/node_modules/fusion-plugin-react-router/dist/index.js" ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("E:\\Apps\\dice\\node_modules\\fusion-plugin-react-router\\dist\\index.js");
+module.exports = require("/Users/agreenspan/Apps/dice/node_modules/fusion-plugin-react-router/dist/index.js");
 
 /***/ }),
 
 /***/ "fusion-plugin-styletron-react":
-/*!**********************************************************************************************!*\
-  !*** external "E:\\Apps\\dice\\node_modules\\fusion-plugin-styletron-react\\dist\\index.js" ***!
-  \**********************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** external "/Users/agreenspan/Apps/dice/node_modules/fusion-plugin-styletron-react/dist/index.js" ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("E:\\Apps\\dice\\node_modules\\fusion-plugin-styletron-react\\dist\\index.js");
+module.exports = require("/Users/agreenspan/Apps/dice/node_modules/fusion-plugin-styletron-react/dist/index.js");
 
 /***/ }),
 
 /***/ "fusion-react":
-/*!*****************************************************************************!*\
-  !*** external "E:\\Apps\\dice\\node_modules\\fusion-react\\dist\\index.js" ***!
-  \*****************************************************************************/
+/*!**************************************************************************************!*\
+  !*** external "/Users/agreenspan/Apps/dice/node_modules/fusion-react/dist/index.js" ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("E:\\Apps\\dice\\node_modules\\fusion-react\\dist\\index.js");
+module.exports = require("/Users/agreenspan/Apps/dice/node_modules/fusion-react/dist/index.js");
 
 /***/ }),
 
@@ -1778,35 +1837,35 @@ module.exports = require("http");
 /***/ }),
 
 /***/ "koa-mount":
-/*!********************************************************************!*\
-  !*** external "E:\\Apps\\dice\\node_modules\\koa-mount\\index.js" ***!
-  \********************************************************************/
+/*!******************************************************************************!*\
+  !*** external "/Users/agreenspan/Apps/dice/node_modules/koa-mount/index.js" ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("E:\\Apps\\dice\\node_modules\\koa-mount\\index.js");
+module.exports = require("/Users/agreenspan/Apps/dice/node_modules/koa-mount/index.js");
 
 /***/ }),
 
 /***/ "koa-static":
-/*!*********************************************************************!*\
-  !*** external "E:\\Apps\\dice\\node_modules\\koa-static\\index.js" ***!
-  \*********************************************************************/
+/*!*******************************************************************************!*\
+  !*** external "/Users/agreenspan/Apps/dice/node_modules/koa-static/index.js" ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("E:\\Apps\\dice\\node_modules\\koa-static\\index.js");
+module.exports = require("/Users/agreenspan/Apps/dice/node_modules/koa-static/index.js");
 
 /***/ }),
 
 /***/ "lodash":
-/*!******************************************************************!*\
-  !*** external "E:\\Apps\\dice\\node_modules\\lodash\\lodash.js" ***!
-  \******************************************************************/
+/*!****************************************************************************!*\
+  !*** external "/Users/agreenspan/Apps/dice/node_modules/lodash/lodash.js" ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("E:\\Apps\\dice\\node_modules\\lodash\\lodash.js");
+module.exports = require("/Users/agreenspan/Apps/dice/node_modules/lodash/lodash.js");
 
 /***/ }),
 
@@ -1822,46 +1881,46 @@ module.exports = require("path");
 /***/ }),
 
 /***/ "react":
-/*!****************************************************************!*\
-  !*** external "E:\\Apps\\dice\\node_modules\\react\\index.js" ***!
-  \****************************************************************/
+/*!**************************************************************************!*\
+  !*** external "/Users/agreenspan/Apps/dice/node_modules/react/index.js" ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("E:\\Apps\\dice\\node_modules\\react\\index.js");
+module.exports = require("/Users/agreenspan/Apps/dice/node_modules/react/index.js");
 
 /***/ }),
 
 /***/ "react-dom/server":
-/*!*********************************************************************!*\
-  !*** external "E:\\Apps\\dice\\node_modules\\react-dom\\server.js" ***!
-  \*********************************************************************/
+/*!*******************************************************************************!*\
+  !*** external "/Users/agreenspan/Apps/dice/node_modules/react-dom/server.js" ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("E:\\Apps\\dice\\node_modules\\react-dom\\server.js");
+module.exports = require("/Users/agreenspan/Apps/dice/node_modules/react-dom/server.js");
 
 /***/ }),
 
 /***/ "reactstrap":
-/*!************************************************************************************!*\
-  !*** external "E:\\Apps\\dice\\node_modules\\reactstrap\\dist\\reactstrap.cjs.js" ***!
-  \************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** external "/Users/agreenspan/Apps/dice/node_modules/reactstrap/dist/reactstrap.cjs.js" ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("E:\\Apps\\dice\\node_modules\\reactstrap\\dist\\reactstrap.cjs.js");
+module.exports = require("/Users/agreenspan/Apps/dice/node_modules/reactstrap/dist/reactstrap.cjs.js");
 
 /***/ }),
 
 /***/ "redbox-react":
-/*!****************************************************************************!*\
-  !*** external "E:\\Apps\\dice\\node_modules\\redbox-react\\lib\\index.js" ***!
-  \****************************************************************************/
+/*!*************************************************************************************!*\
+  !*** external "/Users/agreenspan/Apps/dice/node_modules/redbox-react/lib/index.js" ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("E:\\Apps\\dice\\node_modules\\redbox-react\\lib\\index.js");
+module.exports = require("/Users/agreenspan/Apps/dice/node_modules/redbox-react/lib/index.js");
 
 /***/ })
 

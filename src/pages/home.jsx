@@ -1,7 +1,8 @@
 // @flow
 import React from 'react';
 import _ from 'lodash';
-import {Button, Col, Container, Row} from 'reactstrap';
+import {Col, Container, Row} from 'reactstrap';
+import {styled, withStyle, withStyleDeep, withTransform} from 'fusion-plugin-styletron-react';
 
 class Home extends React.Component {
   constructor() {
@@ -9,33 +10,35 @@ class Home extends React.Component {
 
     this.state = {
       black: {
-        '1': -1,
-        '2': 0,
-        '3': 0,
-        '4': 0,
-        '5': 0,
-        '6': 1
+        one: -1,
+        two: 0,
+        three: 0,
+        four: 0,
+        five: 0,
+        six: 1
       },
       white: {
-        '1': -1,
-        '2': 0,
-        '3': 0,
-        '4': 0,
-        '5': 0,
-        '6': 2
+        one: -1,
+        two: 0,
+        three: 0,
+        four: 0,
+        five: 0,
+        six: 2
       }
     }
   }
 
   handleChange = (event) => {
+    const {name, value} = event.target;
+
     this.setState(prev => {
-      prev[event.target.name] = event.target.value;
+      _.set(prev, name, value);
       return prev;
     });
   };
 
   computeOutcomes = () => {
-    const outcomeKeys = [];
+    let outcomeKeys = [];
     const outcomes = _.reduce([0,1,2,3,4,5], (outcomeMap, statRank) => {
       const rolls = _.map([1,2,3,4,5,6], d1 => {
         return _.map([1,2,3,4,5,6], d2 => { 
@@ -71,19 +74,49 @@ class Home extends React.Component {
                     break;
                 }
                 const whiteOutcome = _.reduce(whitePool, (sum, die) => {
-                  if (die <= this.state.white.failRange) {
-                    sum -= parseInt(this.state.white.failWeight);
-                  } else if (die >= 7 - this.state.white.successRange) {
-                    sum += parseInt(this.state.white.successWeight);
-                  }
+                  switch (die) {
+                    case 1:
+                      sum += parseInt(this.state.white.one)
+                      break;
+                    case 2:
+                      sum += parseInt(this.state.white.two)
+                      break;
+                    case 3:
+                      sum += parseInt(this.state.white.three)
+                      break;
+                    case 4:
+                      sum += parseInt(this.state.white.four)
+                      break;
+                    case 5:
+                      sum += parseInt(this.state.white.five)
+                      break;
+                    case 6:
+                      sum += parseInt(this.state.white.six)
+                      break;
+                  } 
                   return sum;
                 }, 0);
                 const blackOutcome = _.reduce(blackPool, (sum, die) => {
-                  if (die <= this.state.black.failRange) {
-                    sum -= parseInt(this.state.black.failWeight);
-                  } else if (die >= 7 - this.state.black.successRange) {
-                    sum += parseInt(this.state.black.successWeight);
-                  }
+                  switch (die) {
+                    case 1:
+                      sum += parseInt(this.state.black.one)
+                      break;
+                    case 2:
+                      sum += parseInt(this.state.black.two)
+                      break;
+                    case 3:
+                      sum += parseInt(this.state.black.three)
+                      break;
+                    case 4:
+                      sum += parseInt(this.state.black.four)
+                      break;
+                    case 5:
+                      sum += parseInt(this.state.black.five)
+                      break;
+                    case 6:
+                      sum += parseInt(this.state.black.six)
+                      break;
+                  } 
                   return sum;
                 }, 0);
                 const total = blackOutcome + whiteOutcome;
@@ -103,24 +136,22 @@ class Home extends React.Component {
 
       return outcomeMap;
     }, {});
-    // outcomeKeys = order 
+ 
+    outcomeKeys = outcomeKeys.reverse()
     return {outcomeKeys, outcomes};
   };
 
   render () {
     const {outcomeKeys, outcomes} = this.computeOutcomes();
-    const totalSuccess = _.reduce(outcomes, (total, p) => {
-      if (p.outcome > 0) { total += p.chance}
-      return total;
-    }, 0);
-    const totalFailure = _.reduce(outcomes, (total, p) => {
-      if (p.outcome < 0) { total += p.chance}
-      return total;
-    }, 0);
-    const displayOutcomes = _.map(outcomes, (o, i) => {
+    const displayOutcomes = _.map(outcomeKeys, (v, i) => {
       return <tr key={i}>
-        <td>{o.outcome}</td>
-        <td>{o.chance.toFixed(2)}%</td>
+        <th>{v}</th>
+        <td>{(outcomes['0'][v]/77.76).toFixed(2) || '-'}</td>
+        <td>{(outcomes['1'][v]/77.76).toFixed(2) || '-'}</td>
+        <td>{(outcomes['2'][v]/77.76).toFixed(2) || '-'}</td>
+        <td>{(outcomes['3'][v]/77.76).toFixed(2) || '-'}</td>
+        <td>{(outcomes['4'][v]/77.76).toFixed(2) || '-'}</td>
+        <td>{(outcomes['5'][v]/77.76).toFixed(2) || '-'}</td>
       </tr>
     });
 
@@ -130,87 +161,118 @@ class Home extends React.Component {
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
           crossOrigin="anonymous"/>
+        
+        <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+          crossOrigin="anonymous"/>
 
-        <Container style={{paddingTop: 20}}>
+        <link rel="stylesheet"
+          href="file:///Users/agreenspan/Apps/dice/src/pages/style.css"/>
+        
+
+        <Container fluid={true} style={{paddingTop: 20}}>
           <Row>
             <Col sm='3'>
               <Row>
                 <Col sm='6'>
                   <label>Black:</label> 
                   <br/>
+                  <i className='fa fa-dice-one'/>
                   <input type='number'
-                    name='black.1'
-                    value={this.state.black['1']}
+                    name='black.one'
+                    value={this.state.black.one}
                     onChange={this.handleChange}
                     min={-5} max={-1}
                     />
-                    <input type='number'
-                    name='black.2'
-                    value={this.state.black['2']}
+                  <br/>
+                  <i className='fa fa-dice-two'/>
+                  <input type='number'
+                    name='black.two'
+                    value={this.state.black.two}
                     onChange={this.handleChange}
                     min={-5} max={0}
                     />
-                    <input type='number'
-                    name='black.3'
-                    value={this.state.black['3']}
+                  <br/>
+                  <i className='fa fa-dice-three'/>
+                  <input type='number'
+                    name='black.three'
+                    value={this.state.black.three}
                     onChange={this.handleChange}
                     min={-2} max={2}
                     />
-                    <input type='number'
-                    name='black.4'
-                    value={this.state.black['4']}
+                  <br/>
+                  <i className='fa fa-dice-four'/>
+                  <input type='number'
+                    name='black.four'
+                    value={this.state.black.four}
                     onChange={this.handleChange}
                     min={2} max={2}
                     />
-                    <input type='number'
-                    name='black.5'
-                    value={this.state.black['5']}
+                  <br/>
+                  <i className='fa fa-dice-five'/>
+                  <input type='number'
+                    name='black.five'
+                    value={this.state.black.five}
                     onChange={this.handleChange}
                     min={0} max={5}
                     />
-                    <input type='number'
-                    name='black.6'
-                    value={this.state.black['6']}
+                  <br/>
+                  <i className='fa fa-dice-six'/>
+                  <input type='number'
+                    name='black.six'
+                    value={this.state.black.six}
                     onChange={this.handleChange}
                     min={1} max={5}
                     />
-                  </Col>
-                  <Col sm='6'>
+                </Col>
+                <Col sm='6'>
                   <label>White: </label> 
                   <br/>
+                  <i className='fa fa-dice-one' style={{ color: 'white', backgroundColor: 'black'}}/>
                   <input type='number'
-                    name='white.1'
-                    value={this.state.white['1']}
+                    name='white.one'
+                    value={this.state.white.one}
                     onChange={this.handleChange}
                     min={-5} max={-1}
                     />
-                    <input type='number'
-                    name='white.2'
-                    value={this.state.white['2']}
+                  <br/>
+                  2
+                  <input type='number'
+                    name='white.two'
+                    value={this.state.white.two}
                     onChange={this.handleChange}
                     min={-5} max={0}
                     />
-                    <input type='number'
-                    name='white.3'
-                    value={this.state.white['3']}
+                  <br/>
+                  3
+                  <input type='number'
+                    name='white.three'
+                    value={this.state.white.three}
                     onChange={this.handleChange}
                     min={-2} max={2}
                     />
-                    <input type='number'
-                    name='white.4'
-                    value={this.state.white['4']}
+                  <br/>
+                  4
+                  <input type='number'
+                    name='white.four'
+                    value={this.state.white.four}
                     onChange={this.handleChange}
                     min={2} max={2}
                     />
-                    <input type='number'
-                    name='white.5'
-                    value={this.state.white['5']}
+                  <br/>
+                  5
+                  <input type='number'
+                    name='white.five'
+                    value={this.state.white.five}
                     onChange={this.handleChange}
                     min={0} max={5}
                     />
-                    <input type='number'
-                    name='white.6'
-                    value={this.state.white['6']}
+                  <br/>
+                  6
+                  <input type='number'
+                    name='white.six'
+                    value={this.state.white.six}
                     onChange={this.handleChange}
                     min={1} max={5}
                     />
